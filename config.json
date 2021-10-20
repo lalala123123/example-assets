@@ -1,6 +1,5 @@
 {
-    "subscription_id": "74eccef0-4b8d-4f83-b5f9-fa100d155b22",
-    "resource_group": "DesignerTestRG",
-    "workspace_name": "DesignerTest-WCUS-20210923",
-    "location": "eastus2euap"
+    "subscription_id": <Your subscription id>,
+    "resource_group": <Your resource group name>,
+    "workspace_name": <Your workspace name>,
 }
