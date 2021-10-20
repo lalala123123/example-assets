@@ -5,10 +5,11 @@ def package_files(directory):
     paths = []
     for (path, directories, filenames) in os.walk(directory):
         for filename in filenames:
-            paths.append(os.path.join('..', path, filename))
+            paths.append(os.path.join(path, filename))
     return paths
 
 extra_files = package_files('example/assets/components')
+extra_files.append('example/assets/assets.yaml')
 
 setuptools.setup(
     name='example-assets',
@@ -26,5 +27,5 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     python_requires='>=3.6',
     include_package_data=True,
-    package_data={'': extra_files},
+    data_files=[('.', extra_files)],
 )
