@@ -1,0 +1,36 @@
+$schema: https://componentsdk.azureedge.net/jsonschema/ScopeComponent.json
+
+name: bing.relevance.convert2ss
+version: 0.0.4
+display_name: Convert Text to StructureStream
+
+type: ScopeComponent
+
+is_deterministic: True
+
+tags:
+  org: bing
+  project: relevance
+
+description: Convert ADLS test data to SS format
+
+inputs:
+  TextData:
+    type: [AnyFile, AnyDirectory]
+    description: relative path on ADLS storage
+    optional: false
+  ExtractionClause:
+    type: string
+    description: the extraction clause, something like "column1:string, column2:int"
+    optional: false
+outputs:
+  SSPath:
+    type: CosmosStructuredStream
+    description: output path of ss
+
+scope:
+  script: convert2ss.script
+  args: >-
+    RawData {inputs.TextData}
+    ExtractClause {inputs.ExtractionClause}
+    SS_Data {outputs.SSPath}

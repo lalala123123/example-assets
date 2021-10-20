@@ -1,0 +1,48 @@
+# This file is for conversion testing from module yaml to component yaml, as the source module yaml
+# The expect component yaml file is: component_test.yaml
+amlModuleIdentifier:
+  moduleName: Train in Spark
+  moduleVersion: 0.0.1
+  namespace: microsoft.com/azureml/samples
+jobType: HDInsight
+description: Train a Spark ML model using an HDInsight Spark cluster
+isDeterministic: True
+metadata:
+  annotations:
+    contact: Microsoft Coporation <xxx@microsoft.com>
+    helpDocument: https://aka.ms/hdinsight-modules
+    tags:
+    - Sample
+    - HDInsight
+
+inputs:
+  - name: input_path
+    type: AnyDirectory
+    description: Iris csv file
+  - name: regularization_rate
+    type: Float
+    description: Regularization rate when training with logistic regression
+    optional: true
+    default: 0.01
+outputs:
+  - name: output_path
+    type: AnyDirectory
+    description: The output path to save the trained model to
+
+implementation:
+  hdinsight:
+    file: entry.jar
+    files:
+      - file1
+    className: Main
+    jars:
+      - jar1
+    pyFiles:
+      - p1.py
+    archives:
+      - a1.zip
+    args: [
+      --input_path, {inputPath: input_path},
+      [--regularization_rate, {inputValue: regularization_rate}],
+      --output_path, {outputPath: output_path},
+    ]

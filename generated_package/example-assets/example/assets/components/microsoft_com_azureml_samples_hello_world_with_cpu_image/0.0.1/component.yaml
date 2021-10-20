@@ -1,0 +1,31 @@
+$schema: https://componentsdk.azureedge.net/jsonschema/DistributedComponent.json
+name: microsoft.com.azureml.samples.hello_world_with_cpu_image
+version: 0.0.1
+display_name: Hello World with CPU Image
+type: DistributedComponent
+description: A hello world tutorial to create a module for ml.azure.com.
+is_deterministic: True
+tags:
+  DataTransformation: ''
+inputs:
+  input_path:
+    type: AnyDirectory
+    description: The directory contains dataframe.
+    optional: false
+  string_parameter:
+    type: string
+    description: A parameter accepts a string value.
+    optional: true
+outputs:
+  output_path:
+    type: AnyDirectory
+    description: The directory contains a dataframe.
+launcher:
+  type: mpi
+  additional_arguments: >-
+    python /home/some_file.py --input-path {inputs.input_path} [--string-parameter {inputs.string_parameter}]
+    --output-path {outputs.output_path}
+environment:
+  docker:
+    image: pytorch/pytorch
+  os: Linux

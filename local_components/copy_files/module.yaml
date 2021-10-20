@@ -1,0 +1,42 @@
+amlModuleIdentifier:
+  namespace: microsoft.com/azureml/samples
+  moduleName: Parallel Copy Files v1
+  moduleVersion: 0.0.2
+isDeterministic: True
+jobType: Parallel
+description: A sample Parallel module to copy files.
+metadata:
+  annotations:
+    contact: Microsoft Coporation <xxx@microsoft.com>
+    helpDocument: https://aka.ms/parallel-modules
+    tags:
+    - Sample
+    - Parallel
+inputs:
+- name: Input_Folder
+  type: AnyDirectory
+outputs:
+- name: Output_Folder
+  type: AnyDirectory
+  description: Output images
+implementation:
+  parallel:
+    amlEnvironment:
+      python:
+        condaDependencies:
+          name: project_environment
+          channels:
+          - conda-forge
+          dependencies:
+          - pip=20.2
+          - python=3.6.8
+          - pip:
+            - azureml-defaults>=1.19
+      docker:
+        baseImage: mcr.microsoft.com/azureml/base:intelmpi2018.3-ubuntu16.04
+    args: [--output-dir, {outputPath: Output_Folder}]
+    inputData: Input_Folder
+    outputData: Output_Folder
+    entry: copy_files.py
+  os: Linux
+...

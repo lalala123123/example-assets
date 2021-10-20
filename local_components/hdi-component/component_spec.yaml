@@ -1,0 +1,32 @@
+$schema: https://componentsdk.azureedge.net/jsonschema/HDInsightComponent.json
+name: microsoft.com.azureml.samples.train-in-spark
+version: 0.0.1
+display_name: Train in Spark
+type: HDInsightComponent
+description: Train a Spark ML model using an HDInsight Spark cluster
+is_deterministic: true
+tags:
+  Sample:
+  HDInsight:
+  helpDocument: https://aka.ms/hdinsight-modules
+  contact: Microsoft Coporation <xxx@microsoft.com>
+
+inputs:
+  input_path:
+    type: AnyDirectory
+    description: Iris csv file
+    optional: false
+  regularization_rate:
+    type: float
+    description: Regularization rate when training with logistic regression
+    optional: true
+    default: 0.01
+outputs:
+  output_path:
+    type: AnyDirectory
+    description: The output path to save the trained model to
+
+hdinsight:
+  file: "train-spark.py"
+  args: >-
+    --input_path {inputs.input_path} [--regularization_rate {inputs.regularization_rate}] --output_path {outputs.output_path}
