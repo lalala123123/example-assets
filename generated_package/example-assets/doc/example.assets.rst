@@ -11,5 +11,5 @@ Subpackages
 
 .. toctree::
 
-    example.assets.components
+    example.assets.example_components
 

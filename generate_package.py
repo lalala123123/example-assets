@@ -1,7 +1,7 @@
 from azure.ml.component import dsl
 
 assets = {
-    'components': [
+    'example_components': [
         'file:./local_components/mpi/component.yaml',
         'file:./local_components/copy_files/component.yaml',
         'file:./local_components/hdi-component/component_spec.yaml',
