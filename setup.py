@@ -1,6 +1,8 @@
 import setuptools
 import os
 
+os.system("pip install azure-ml-component==0.1.0.49823304 --extra-index-url  https://azuremlsdktestpypi.azureedge.net/CLI-SDK-Runners-Validation/49823304/")
+
 def package_files(directory):
     paths = []
     for (path, directories, filenames) in os.walk(directory):
@@ -23,7 +25,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
     ],
-    install_requires=['azure-ml-component'],
     packages=setuptools.find_packages(),
     python_requires='>=3.6',
     include_package_data=True,
