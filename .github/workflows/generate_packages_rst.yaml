@@ -27,11 +27,10 @@ jobs:
       working-directory: ./generated_package/example-assets
 
     # ===========================Update branch================================
-    - name: Update branch
-      - uses: actions/checkout@master
-      - uses: Embraser01/update-git-branch-action@v1.0.0
-         if: github.ref == 'refs/heads/master'
-         with:
-           branch: reference_doc
-           force: 1 # To push-force to the branch
-           githubToken: ${{ secrets.PAT_TOKEN }} # Github Token
+    - uses: actions/checkout@master
+    - uses: Embraser01/update-git-branch-action@v1.0.0
+      if: github.ref == 'refs/heads/master'
+      with:
+        branch: reference_doc
+        force: 1 # To push-force to the branch
+        githubToken: ${{ secrets.PAT_TOKEN }} # Github Token
