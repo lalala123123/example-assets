@@ -27,7 +27,6 @@ jobs:
     # ===========================Generate sphinx================================
     - name: Generate sphinx apidoc
       run: |
-        cwd
         sphinx-apidoc -f --module-first . -o ./doc setup.py
       working-directory: ./generated_package/example-assets
 
