@@ -26,11 +26,10 @@ jobs:
         sphinx-apidoc -f --module-first . -o .\doc setup.py
       working-directory: ./generated_package/example-assets
 
-    # ===========================Update branch================================
-    - uses: actions/checkout@master
-    - uses: Embraser01/update-git-branch-action@v1.0.0
-      if: github.ref == 'refs/heads/master'
-      with:
-        branch: reference_doc
-        force: 1 # To push-force to the branch
-        githubToken: ${{ secrets.PAT_TOKEN }} # Github Token
+    # - name: Push
+    #     uses: s0/git-publish-subdir-action@develop
+    #     env:
+    #       REPO: self
+    #       BRANCH: reference_doc # The branch name where you want to push the assets
+    #       FOLDER: build # The directory where your assets are generated
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
