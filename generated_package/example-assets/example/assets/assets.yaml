@@ -1,9 +1,5 @@
 assets:
   example_components:
-  - file:../../../../local_components/mpi/component.yaml
-  - file:../../../../local_components/copy_files/component.yaml
-  - file:../../../../local_components/hdi-component/component_spec.yaml
-  - file:../../../../local_components/scope_component/toss/component_spec.yaml
-  - file:../../../../local_components/sweep_component/sweep.spec.yaml
+  - file:../../../../components/**/*.yaml
   - azureml://feeds/azureml
   - azureml://feeds/huggingface

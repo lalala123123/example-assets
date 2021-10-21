@@ -1,0 +1,40 @@
+$schema: https://componentsdk.azureedge.net/jsonschema/SweepComponent.json
+name: microsoft.com.azureml.samples.tune
+version: 0.0.4
+display_name: Tune
+type: SweepComponent
+description: A dummy hyperparameter tuning component
+tags: {category: Component Tutorial, contact: amldesigner@microsoft.com}
+is_deterministic: true
+
+outputs:
+  best_model:
+    type: model
+    path: outputs/saved_model.txt
+
+trial: file:train.yaml
+
+algorithm: random
+search_space:
+  learning_rate:
+    type: uniform
+    min_value: 0.03
+    max_value: 0.1
+  subsample:
+    type: uniform
+    min_value: 0.2
+    max_value: 0.5
+
+objective: 
+  primary_metric: 
+    default: accuracy
+    enum: [accuracy, precision]
+  goal: maximize
+
+early_termination:
+  policy_type: truncation_selection
+  truncation_percentage: 1
+  evaluation_interval: 100
+  delay_evaluation: 200
+limits:
+  max_total_trials: 20

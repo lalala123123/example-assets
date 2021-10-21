@@ -1,11 +1,13 @@
 # THIS IS AN AUTO GENERATED FILE.
 # PLEASE DO NOT MODIFY MANUALLY.
 # Components included in this generated file:
-#  - microsoft.com.azureml.samples.hello_world_with_cpu_image::0.0.1
 #  - microsoft.com.azureml.samples.parallel_copy_files_v1::0.0.2
 #  - microsoft.com.azureml.samples.train-in-spark::0.0.1
+#  - microsoft.com.azureml.samples.hello_world_with_cpu_image::0.0.1
 #  - bing.relevance.convert2ss::0.0.4
+#  - bing.relevance.convert2ss.isresource::0.0.4
 #  - microsoft.com.azureml.samples.tune::0.0.4
+#  - microsoft.com.azureml.samples.sweep_train::0.0.4
 #  - azureml://Add Columns::0.0.159
 #  - azureml://Add Rows::0.0.159
 #  - azureml://Apply Image Transformation::0.0.39
@@ -105,76 +107,6 @@ from . import _workspace
 
 
 SOURCE_DIRECTORY = Path(__file__).parent / ".."
-
-
-class _DistributedComponentRunsettingDockerConfiguration:
-    """Docker configuration section specify the docker runtime properties for the Run.."""
-    arguments: Union[str, list]
-    """Extra arguments to the Docker run command. The extra docker container options like --cpus=2, --memory=1024"""
-    shared_volumes: bool
-    """Indicates whether to use shared volumes. Set to False if necessary to work around shared volume bugs on Windows. The default is True."""
-    shm_size: str
-    """The size of the Docker container's shared memory block. If not set, the default 2g is used."""
-    use_docker: bool
-    """Specifies whether the environment to run the experiment should be Docker-based. Amlcompute linux clusters require that jobs running inside Docker containers. The backend will override the value to be true for Amlcompute linux clusters."""
-
-
-class _DistributedComponentRunsettingEnvironment:
-    """Environment section set runtime environment."""
-    conda: str
-    """Defines conda dependencies"""
-    docker: str
-    """Defines settings to customize the Docker image built to the environment's specifications."""
-    os: str
-    """Defines the operating system the component running on. Could be Windows or Linux. Defaults to Linux if not specified. (enum: ['Windows', 'Linux'])"""
-
-
-class _DistributedComponentRunsettingResourceLayout:
-    """resource section controls the number of nodes, cpus, gpus the job will consume."""
-    instance_count: int
-    """Number of instances in the compute target used for training. (min: 1)"""
-    instance_type: str
-    """Instance type used for training."""
-    node_count: int
-    """Number of nodes in the compute target used for training. (min: 1)"""
-    process_count_per_instance: int
-    """Number of processes per instance. If greater than 1, mpi distributed job will be run. Only AmlCompute compute target is supported for distributed jobs. (min: 1, max: 8)"""
-
-
-class _DistributedComponentRunsettingTargetSelector:
-    """Specify desired target properties, instead of specifying a cluster name. When target is set, target_selector will be ignored."""
-    allow_spot_vm: bool
-    """Flag to enable target selector service to send job to low priority VM. Currently it only works for AmlK8s."""
-    cluster_block_list: Union[str, list]
-    """User specified block list of Cluster."""
-    compute_type: str
-    """Compute type that target selector could route job to. (enum: ['AmlCompute', 'AmlK8s'])"""
-    instance_types: Union[str, list]
-    """List of instance_type that job could use. If no instance_type specified, all sizes are allowed."""
-    my_resource_only: bool
-    """Flag to control whether the job should be sent to the cluster owned by user. If False, target selector may send the job to shared cluster. Currently it only works for AmlK8s."""
-    regions: Union[str, list]
-    """List of region that would like to submit job to. If no region specified, all regions are allowed."""
-    vc_block_list: Union[str, list]
-    """User specified block list of VC."""
-
-
-class _DistributedComponentRunsetting:
-    """Run setting configuration for DistributedComponent"""
-    environment_variables: Union[str, dict]
-    """Environment variables can be used to specify environment variables to be passed. It is a dictionary of environment name to environment value mapping. User can use this to adjust some component runtime behavior which is not exposed as component parameter, e.g. enable some debug switch."""
-    priority: int
-    """The priority of a job which is a integer. For AmlK8s Compute, User can set it to 100~200. Any value larger than 200 or less than 100 will be treated as 200. For Aml Compute, User can set it to 1~1000. Any value larger than 1000 or less than 1 will be treated as 1000."""
-    target: str
-    """The compute target to use"""
-    docker_configuration: _DistributedComponentRunsettingDockerConfiguration
-    """Docker configuration section specify the docker runtime properties for the Run.."""
-    environment: _DistributedComponentRunsettingEnvironment
-    """Environment section set runtime environment."""
-    resource_layout: _DistributedComponentRunsettingResourceLayout
-    """resource section controls the number of nodes, cpus, gpus the job will consume."""
-    target_selector: _DistributedComponentRunsettingTargetSelector
-    """Specify desired target properties, instead of specifying a cluster name. When target is set, target_selector will be ignored."""
 
 
 class _ParallelComponentRunsettingDockerConfiguration:
@@ -295,6 +227,76 @@ class _HDInsightComponentRunsetting:
     """Hdi Compute name that is attached to AML"""
     hdinsight: _HDInsightComponentRunsettingHdinsight
     """_HDInsightComponentRunsettingHdinsight"""
+
+
+class _DistributedComponentRunsettingDockerConfiguration:
+    """Docker configuration section specify the docker runtime properties for the Run.."""
+    arguments: Union[str, list]
+    """Extra arguments to the Docker run command. The extra docker container options like --cpus=2, --memory=1024"""
+    shared_volumes: bool
+    """Indicates whether to use shared volumes. Set to False if necessary to work around shared volume bugs on Windows. The default is True."""
+    shm_size: str
+    """The size of the Docker container's shared memory block. If not set, the default 2g is used."""
+    use_docker: bool
+    """Specifies whether the environment to run the experiment should be Docker-based. Amlcompute linux clusters require that jobs running inside Docker containers. The backend will override the value to be true for Amlcompute linux clusters."""
+
+
+class _DistributedComponentRunsettingEnvironment:
+    """Environment section set runtime environment."""
+    conda: str
+    """Defines conda dependencies"""
+    docker: str
+    """Defines settings to customize the Docker image built to the environment's specifications."""
+    os: str
+    """Defines the operating system the component running on. Could be Windows or Linux. Defaults to Linux if not specified. (enum: ['Windows', 'Linux'])"""
+
+
+class _DistributedComponentRunsettingResourceLayout:
+    """resource section controls the number of nodes, cpus, gpus the job will consume."""
+    instance_count: int
+    """Number of instances in the compute target used for training. (min: 1)"""
+    instance_type: str
+    """Instance type used for training."""
+    node_count: int
+    """Number of nodes in the compute target used for training. (min: 1)"""
+    process_count_per_instance: int
+    """Number of processes per instance. If greater than 1, mpi distributed job will be run. Only AmlCompute compute target is supported for distributed jobs. (min: 1, max: 8)"""
+
+
+class _DistributedComponentRunsettingTargetSelector:
+    """Specify desired target properties, instead of specifying a cluster name. When target is set, target_selector will be ignored."""
+    allow_spot_vm: bool
+    """Flag to enable target selector service to send job to low priority VM. Currently it only works for AmlK8s."""
+    cluster_block_list: Union[str, list]
+    """User specified block list of Cluster."""
+    compute_type: str
+    """Compute type that target selector could route job to. (enum: ['AmlCompute', 'AmlK8s'])"""
+    instance_types: Union[str, list]
+    """List of instance_type that job could use. If no instance_type specified, all sizes are allowed."""
+    my_resource_only: bool
+    """Flag to control whether the job should be sent to the cluster owned by user. If False, target selector may send the job to shared cluster. Currently it only works for AmlK8s."""
+    regions: Union[str, list]
+    """List of region that would like to submit job to. If no region specified, all regions are allowed."""
+    vc_block_list: Union[str, list]
+    """User specified block list of VC."""
+
+
+class _DistributedComponentRunsetting:
+    """Run setting configuration for DistributedComponent"""
+    environment_variables: Union[str, dict]
+    """Environment variables can be used to specify environment variables to be passed. It is a dictionary of environment name to environment value mapping. User can use this to adjust some component runtime behavior which is not exposed as component parameter, e.g. enable some debug switch."""
+    priority: int
+    """The priority of a job which is a integer. For AmlK8s Compute, User can set it to 100~200. Any value larger than 200 or less than 100 will be treated as 200. For Aml Compute, User can set it to 1~1000. Any value larger than 1000 or less than 1 will be treated as 1000."""
+    target: str
+    """The compute target to use"""
+    docker_configuration: _DistributedComponentRunsettingDockerConfiguration
+    """Docker configuration section specify the docker runtime properties for the Run.."""
+    environment: _DistributedComponentRunsettingEnvironment
+    """Environment section set runtime environment."""
+    resource_layout: _DistributedComponentRunsettingResourceLayout
+    """resource section controls the number of nodes, cpus, gpus the job will consume."""
+    target_selector: _DistributedComponentRunsettingTargetSelector
+    """Specify desired target properties, instead of specifying a cluster name. When target is set, target_selector will be ignored."""
 
 
 class _ScopeComponentRunsettingScope:
@@ -495,48 +497,6 @@ class _CommandComponentRunsetting:
     """Specify desired target properties, instead of specifying a cluster name. When target is set, target_selector will be ignored."""
 
 
-class _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageInput:
-    input_path: Input = None
-    """The directory contains dataframe."""
-    string_parameter: str = None
-    """A parameter accepts a string value. (optional)"""
-
-
-class _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageOutput:
-    output_path: Output = None
-    """The directory contains a dataframe."""
-
-
-class _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageComponent(Component):
-    inputs: _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageInput
-    outputs: _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageOutput
-    runsettings: _DistributedComponentRunsetting
-
-
-_microsoft_com_azureml_samples_hello_world_with_cpu_image = None
-
-
-def microsoft_com_azureml_samples_hello_world_with_cpu_image(
-    input_path: Path = None,
-    string_parameter: str = None,
-) -> _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageComponent:
-    """A hello world tutorial to create a module for ml.azure.com.
-    
-    :param input_path: The directory contains dataframe.
-    :type input_path: Path
-    :param string_parameter: A parameter accepts a string value. (optional)
-    :type string_parameter: str
-    :output output_path: The directory contains a dataframe.
-    :type: output_path: Output
-    """
-    global _microsoft_com_azureml_samples_hello_world_with_cpu_image
-    if _microsoft_com_azureml_samples_hello_world_with_cpu_image is None:
-        _microsoft_com_azureml_samples_hello_world_with_cpu_image = Component.from_yaml(yaml_file=SOURCE_DIRECTORY / "components/microsoft_com_azureml_samples_hello_world_with_cpu_image/0.0.1/component.yaml")
-    return _microsoft_com_azureml_samples_hello_world_with_cpu_image(
-            input_path=input_path,
-            string_parameter=string_parameter,)
-
-
 class _MicrosoftComAzuremlSamplesParallelCopyFilesV1Input:
     input_folder: Input = None
     """AnyDirectory"""
@@ -544,7 +504,7 @@ class _MicrosoftComAzuremlSamplesParallelCopyFilesV1Input:
 
 class _MicrosoftComAzuremlSamplesParallelCopyFilesV1Output:
     output_folder: Output = None
-    """Output images"""
+    """Output files"""
 
 
 class _MicrosoftComAzuremlSamplesParallelCopyFilesV1Component(Component):
@@ -563,12 +523,12 @@ def microsoft_com_azureml_samples_parallel_copy_files_v1(
     
     :param input_folder: AnyDirectory
     :type input_folder: Path
-    :output output_folder: Output images
+    :output output_folder: Output files
     :type: output_folder: Output
     """
     global _microsoft_com_azureml_samples_parallel_copy_files_v1
     if _microsoft_com_azureml_samples_parallel_copy_files_v1 is None:
-        _microsoft_com_azureml_samples_parallel_copy_files_v1 = Component.from_yaml(yaml_file=SOURCE_DIRECTORY / "components/microsoft_com_azureml_samples_parallel_copy_files_v1/0.0.2/component.yaml")
+        _microsoft_com_azureml_samples_parallel_copy_files_v1 = Component.from_yaml(yaml_file=SOURCE_DIRECTORY / "components/microsoft_com_azureml_samples_parallel_copy_files_v1/0.0.2/component_no_args.yaml")
     return _microsoft_com_azureml_samples_parallel_copy_files_v1(
             input_folder=input_folder,)
 
@@ -615,6 +575,48 @@ def microsoft_com_azureml_samples_train_in_spark(
             regularization_rate=regularization_rate,)
 
 
+class _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageInput:
+    input_path: Input = None
+    """The directory contains dataframe."""
+    string_parameter: str = None
+    """A parameter accepts a string value. (optional)"""
+
+
+class _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageOutput:
+    output_path: Output = None
+    """The directory contains a dataframe."""
+
+
+class _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageComponent(Component):
+    inputs: _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageInput
+    outputs: _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageOutput
+    runsettings: _DistributedComponentRunsetting
+
+
+_microsoft_com_azureml_samples_hello_world_with_cpu_image = None
+
+
+def microsoft_com_azureml_samples_hello_world_with_cpu_image(
+    input_path: Path = None,
+    string_parameter: str = None,
+) -> _MicrosoftComAzuremlSamplesHelloWorldWithCpuImageComponent:
+    """A hello world tutorial to create a module for ml.azure.com.
+    
+    :param input_path: The directory contains dataframe.
+    :type input_path: Path
+    :param string_parameter: A parameter accepts a string value. (optional)
+    :type string_parameter: str
+    :output output_path: The directory contains a dataframe.
+    :type: output_path: Output
+    """
+    global _microsoft_com_azureml_samples_hello_world_with_cpu_image
+    if _microsoft_com_azureml_samples_hello_world_with_cpu_image is None:
+        _microsoft_com_azureml_samples_hello_world_with_cpu_image = Component.from_yaml(yaml_file=SOURCE_DIRECTORY / "components/microsoft_com_azureml_samples_hello_world_with_cpu_image/0.0.1/component_spec.yaml")
+    return _microsoft_com_azureml_samples_hello_world_with_cpu_image(
+            input_path=input_path,
+            string_parameter=string_parameter,)
+
+
 class _BingRelevanceConvert2SsInput:
     TextData: Input = None
     """relative path on ADLS storage"""
@@ -653,6 +655,48 @@ def bing_relevance_convert2ss(
     if _bing_relevance_convert2ss is None:
         _bing_relevance_convert2ss = Component.from_yaml(yaml_file=SOURCE_DIRECTORY / "components/bing_relevance_convert2ss/0.0.4/component_spec.yaml")
     return _bing_relevance_convert2ss(
+            TextData=TextData,
+            ExtractionClause=ExtractionClause,)
+
+
+class _BingRelevanceConvert2SsIsresourceInput:
+    TextData: Input = None
+    """relative path on ADLS storage"""
+    ExtractionClause: str = None
+    """the extraction clause, something like \"column1:string, column2:int\""""
+
+
+class _BingRelevanceConvert2SsIsresourceOutput:
+    SSPath: Output = None
+    """output path of ss"""
+
+
+class _BingRelevanceConvert2SsIsresourceComponent(Component):
+    inputs: _BingRelevanceConvert2SsIsresourceInput
+    outputs: _BingRelevanceConvert2SsIsresourceOutput
+    runsettings: _ScopeComponentRunsetting
+
+
+_bing_relevance_convert2ss_isresource = None
+
+
+def bing_relevance_convert2ss_isresource(
+    TextData: Path = None,
+    ExtractionClause: str = None,
+) -> _BingRelevanceConvert2SsIsresourceComponent:
+    """Convert ADLS test data to SS format
+    
+    :param TextData: relative path on ADLS storage
+    :type TextData: Path
+    :param ExtractionClause: the extraction clause, something like \"column1:string, column2:int\"
+    :type ExtractionClause: str
+    :output SSPath: output path of ss
+    :type: SSPath: Output
+    """
+    global _bing_relevance_convert2ss_isresource
+    if _bing_relevance_convert2ss_isresource is None:
+        _bing_relevance_convert2ss_isresource = Component.from_yaml(yaml_file=SOURCE_DIRECTORY / "components/bing_relevance_convert2ss_isresource/0.0.4/component_spec.yaml")
+    return _bing_relevance_convert2ss_isresource(
             TextData=TextData,
             ExtractionClause=ExtractionClause,)
 
@@ -711,8 +755,66 @@ def microsoft_com_azureml_samples_tune(
     """
     global _microsoft_com_azureml_samples_tune
     if _microsoft_com_azureml_samples_tune is None:
-        _microsoft_com_azureml_samples_tune = Component.from_yaml(yaml_file=SOURCE_DIRECTORY / "components/microsoft_com_azureml_samples_tune/0.0.4/sweep.spec.yaml")
+        _microsoft_com_azureml_samples_tune = Component.from_yaml(yaml_file=SOURCE_DIRECTORY / "components/microsoft_com_azureml_samples_tune/0.0.4/component_spec.yaml")
     return _microsoft_com_azureml_samples_tune(
+            training_data=training_data,
+            max_epochs=max_epochs,
+            learning_rate=learning_rate,
+            subsample=subsample,)
+
+
+class _MicrosoftComAzuremlSamplesSweepTrainInput:
+    training_data: Input = None
+    """Training data organized in the torchvision format/structure"""
+    max_epochs: int = None
+    """Maximum number of epochs for the training"""
+    learning_rate: float = None
+    """learning_rate (min: 0.001, max: 0.1)"""
+    subsample: float = None
+    """learning_rate (min: 0.1, max: 0.5)"""
+
+
+class _MicrosoftComAzuremlSamplesSweepTrainOutput:
+    saved_model: Output = None
+    """path"""
+    other_output: Output = None
+    """path"""
+
+
+class _MicrosoftComAzuremlSamplesSweepTrainComponent(Component):
+    inputs: _MicrosoftComAzuremlSamplesSweepTrainInput
+    outputs: _MicrosoftComAzuremlSamplesSweepTrainOutput
+    runsettings: _CommandComponentRunsetting
+
+
+_microsoft_com_azureml_samples_sweep_train = None
+
+
+def microsoft_com_azureml_samples_sweep_train(
+    training_data: Path = None,
+    max_epochs: int = None,
+    learning_rate: float = None,
+    subsample: float = None,
+) -> _MicrosoftComAzuremlSamplesSweepTrainComponent:
+    """A dummy train component
+    
+    :param training_data: Training data organized in the torchvision format/structure
+    :type training_data: Path
+    :param max_epochs: Maximum number of epochs for the training
+    :type max_epochs: int
+    :param learning_rate: learning_rate (min: 0.001, max: 0.1)
+    :type learning_rate: float
+    :param subsample: learning_rate (min: 0.1, max: 0.5)
+    :type subsample: float
+    :output saved_model: path
+    :type: saved_model: Output
+    :output other_output: path
+    :type: other_output: Output
+    """
+    global _microsoft_com_azureml_samples_sweep_train
+    if _microsoft_com_azureml_samples_sweep_train is None:
+        _microsoft_com_azureml_samples_sweep_train = Component.from_yaml(yaml_file=SOURCE_DIRECTORY / "components/microsoft_com_azureml_samples_sweep_train/0.0.4/train.yaml")
+    return _microsoft_com_azureml_samples_sweep_train(
             training_data=training_data,
             max_epochs=max_epochs,
             learning_rate=learning_rate,

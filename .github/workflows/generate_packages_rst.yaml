@@ -1,0 +1,37 @@
+name: Generate package RST
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+jobs:
+  sphinx-apidoc :
+    runs-on: ubuntu-latest
+    steps:
+    # ===========================Setup python================================
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.6.8
+
+    # ===========================Install requirements================================
+    - name: Install requirements
+      run: |
+        pip install --upgrade pip==20.2
+        pip install sphinx==1.5.5 sphinx_rtd_theme==0.5.0
+
+    # ===========================Generate sphinx apidoc================================
+    - name: Generate sphinx apidoc
+      run: |
+        sphinx-apidoc -f --module-first . -o .\doc setup.py
+      working-directory: ./generated_package/example-assets
+
+    # ===========================Update branch================================
+    - name: Update branch
+      - uses: actions/checkout@master
+      - uses: Embraser01/update-git-branch-action@v1.0.0
+         if: github.ref == 'refs/heads/master'
+         with:
+           branch: reference_doc
+           force: 1 # To push-force to the branch
+           githubToken: ${{ secrets.PAT_TOKEN }} # Github Token
