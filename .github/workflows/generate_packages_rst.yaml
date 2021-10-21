@@ -8,6 +8,10 @@ jobs:
   sphinx-apidoc :
     runs-on: ubuntu-latest
     steps:
+
+    - name: git-checkout
+      uses: actions/checkout@v2
+
     # ===========================Setup python================================
     - name: setup python
       uses: actions/setup-python@v2
@@ -20,16 +24,18 @@ jobs:
         pip install --upgrade pip==20.2
         pip install sphinx==1.5.5 sphinx_rtd_theme==0.5.0
 
-    # ===========================Generate sphinx apidoc================================
+    # ===========================Generate sphinx================================
     - name: Generate sphinx apidoc
       run: |
-        sphinx-apidoc -f --module-first . -o .\doc setup.py
+        cwd
+        sphinx-apidoc -f --module-first . -o ./doc setup.py
       working-directory: ./generated_package/example-assets
 
-    # - name: Push
-    #     uses: s0/git-publish-subdir-action@develop
-    #     env:
-    #       REPO: self
-    #       BRANCH: reference_doc # The branch name where you want to push the assets
-    #       FOLDER: build # The directory where your assets are generated
-    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+    # ===========================Push================================
+    - name: Push
+      uses: s0/git-publish-subdir-action@develop
+      env:
+        REPO: self
+        BRANCH: reference_doc # The branch name where you want to push the assets
+        FOLDER: . # The directory where your assets are generated
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
