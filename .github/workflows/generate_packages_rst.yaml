@@ -39,4 +39,4 @@ jobs:
         git add .
         git commit -m "Update doc"
         echo ${GITHUB_REF##*/}
-        git push origin ${GITHUB_REF##*/}:${GITHUB_REF##*/}_reference_doc
+        git push -f origin ${GITHUB_REF##*/}:${GITHUB_REF##*/}_reference_doc
