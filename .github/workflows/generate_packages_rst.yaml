@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - specify_azure_ml_component
 jobs:
   sphinx-apidoc :
     runs-on: ubuntu-latest
