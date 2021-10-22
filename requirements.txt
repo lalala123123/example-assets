@@ -1,1 +1,1 @@
-generated_package\example-assets
+generated_package/example-assets/
