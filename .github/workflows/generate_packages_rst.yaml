@@ -31,10 +31,9 @@ jobs:
       working-directory: ./generated_package/example-assets
 
     # ===========================Push================================
-    - name: Push
-      uses: s0/git-publish-subdir-action@develop
-      env:
-        REPO: self
-        BRANCH: reference_doc # The branch name where you want to push the assets
-        FOLDER: . # The directory where your assets are generated
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+    - name: Commit report
+      run: |
+        git config --global user.name 'henu_rz@163.com'
+        git config --global user.email 'henu_rz@users.noreply.github.com'
+        git commit -am "Automated report"
+        git push
