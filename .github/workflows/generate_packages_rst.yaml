@@ -38,4 +38,5 @@ jobs:
         git config --global user.email 'henu_rz@users.noreply.github.com'
         git add .
         git commit -m "Update doc"
+        echo ${GITHUB_REF##*/}
         git push origin ${GITHUB_REF##*/}:reference_doc
